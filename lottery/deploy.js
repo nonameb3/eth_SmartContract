@@ -20,6 +20,7 @@ const deploy = async () => {
     gas: '1000000'
   })
 
+  console.log( interface )
   console.log('contract deploy to', result.options.address)
 }
 
