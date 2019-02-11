@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build": "node ethereum/complie.js",
+    "deploy": "node ethereum/deploy.js",
     "test": "mocha"
   },
   "author": "",

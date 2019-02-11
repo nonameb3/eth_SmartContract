@@ -27,29 +27,28 @@ contract Campaign {
     uint public minimumContribution;
     Request[] public requests;
     mapping(address => bool) public approvers;
-    uint public approvalCount;
+    uint public approversCount;
 
     modifier restricted() {
         require(msg.sender == manager);
         _;
     }
 
-    function Campaign(uint minimum, address sender) public {
-        manager = sender;
+    function Campaign(uint minimum, address creator) public {
+        manager = creator;
         minimumContribution = minimum;
     }
 
     function contribute() public payable {
         require(msg.value > minimumContribution);
         approvers[msg.sender] = true;
-        approvalCount++;
+        approversCount++;
     }
     
     function createRequest(string decription, uint value, address recipient) public restricted {
-        require(approvers[msg.sender]);
         Request memory newRequest = Request({
             decription: decription,
-            value: value,
+            value: value * 1000000000000000000,
             recipient: recipient,
             complete: false,
             approvalCount: 0
@@ -67,12 +66,29 @@ contract Campaign {
         request.approvalCount++;
     }
     
-    function finalizeRequest(uint index) public {
+    function finalizeRequest(uint index) public restricted {
         Request storage request = requests[index];
-        
-        require(request.approvalCount > (approvalCount/2));
+
+        require(request.approvalCount > (approversCount / 2));
         require(!request.complete);
+
         request.recipient.transfer(request.value);
         request.complete = true;
+    }
+    
+    function getSummary() public view returns (
+      uint, uint, uint, uint, address
+      ) {
+        return (
+          minimumContribution,
+          this.balance,
+          requests.length,
+          approversCount,
+          manager
+        );
+    }
+
+    function getRequestsCount() public view returns (uint) {
+        return requests.length;
     }
 }
