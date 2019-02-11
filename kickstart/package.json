@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "dev": "next dev",
     "build": "node ethereum/complie.js",
     "deploy": "node ethereum/deploy.js",
     "test": "mocha"
@@ -15,6 +16,9 @@
     "fs-extra": "^7.0.1",
     "ganache-cli": "^6.3.0",
     "mocha": "^5.2.0",
+    "next": "^4.1.4",
+    "react": "^16.8.1",
+    "react-dom": "^16.8.1",
     "solc": "^0.4.25",
     "truffle-hdwallet-provider": "0.0.3",
     "web3": "=1.0.0-beta.35"
