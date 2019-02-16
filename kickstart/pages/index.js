@@ -10,7 +10,7 @@ class index extends React.Component{
     return { campaigns }
   }
 
-  randerCampaigns(){
+  randerCampaigns = () => {
     const items = this.props.campaigns.map(address => {
       return{
         header: address,
@@ -27,7 +27,6 @@ class index extends React.Component{
   }
 
   render(){
-    console.log(this.props.campaigns)
     return(
       <div>
         <Layout>
