@@ -27,11 +27,11 @@ export class NewRequest extends Component {
     this.setState({ loading: true, errorMessage: '' })
     
     try {
-      await campaign.methods.createRequest(description, web3.utils.toWei(value), recipient).send({
+      await campaign.methods.createRequest(description, web3.utils.toWei(value, "ether"), recipient).send({
         from: accounts[0]
       })
 
-      Router.pushRoute(`/campaigns/${this.props.address}/requests`)
+      Router.pushRoute(`/campaigns/show`)
     } catch (error) {
       this.setState({ errorMessage: error.message })
     }

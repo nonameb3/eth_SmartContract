@@ -48,7 +48,7 @@ contract Campaign {
     function createRequest(string decription, uint value, address recipient) public restricted {
         Request memory newRequest = Request({
             decription: decription,
-            value: value * 1000000000000000000,
+            value: value,
             recipient: recipient,
             complete: false,
             approvalCount: 0
